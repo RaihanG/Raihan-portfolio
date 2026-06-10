@@ -3,30 +3,50 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Md Raihan Goni | Academic Portfolio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md Raihan Goni — PhD Researcher · AI in Optics</title>
     <meta name="description"
-        content="Academic portfolio of Md Raihan Goni, PhD researcher in AI for biomedical optics and medical imaging.">
-    <link rel="stylesheet" href="style.css">
+        content="Md Raihan Goni — PhD researcher at the University of Nottingham developing physics-informed AI for biomedical optics, medical imaging, and signal processing.">
+    <meta name="author" content="Md Raihan Goni">
+    <meta property="og:title" content="Md Raihan Goni — PhD Researcher · AI in Optics">
+    <meta property="og:description"
+        content="Physics-informed AI for optical tissue characterization, medical image segmentation, and biomedical signal processing.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.raihangoni.info">
 
-    <!-- Google Fonts -->
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%230b1117'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='%2335e0c8' text-anchor='middle'%3ERG%3C/text%3E%3C/svg%3E">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- Navigation -->
-    <header class="site-header">
-        <div class="container nav-container">
-            <div class="logo">
-                <img src="assets/rg-logo.png" alt="RG logo" class="logo-mark">
-                <a href="#top">Md Raihan Goni</a>
-            </div>
+    <a class="skip-link" href="#main">Skip to main content</a>
 
-            <nav class="nav-links">
+    <!-- Scroll progress bar (top) -->
+    <div class="scroll-progress" aria-hidden="true">
+        <span id="scroll-progress-fill"></span>
+    </div>
+
+    <!-- Ambient background -->
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="bg-glow" aria-hidden="true"></div>
+
+    <!-- ============ Header ============ -->
+    <header class="site-header" id="site-header">
+        <div class="container header-inner">
+            <a href="#top" class="brand" aria-label="Md Raihan Goni — home">
+                <img class="brand-mark" src="assets/rg-logo-new.png" alt="RG monogram logo" width="1357" height="1067">
+                <span class="brand-name">Md Raihan Goni</span>
+            </a>
+
+            <nav class="site-nav" id="site-nav" aria-label="Primary">
                 <a href="#about">About</a>
                 <a href="#research">Research</a>
                 <a href="#publications">Publications</a>
@@ -34,779 +54,578 @@
                 <a href="#education">Education</a>
                 <a href="#awards">Awards</a>
                 <a href="#contact">Contact</a>
-
-                <!-- Theme toggle -->
-                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">
-                    <span id="theme-toggle-icon" aria-hidden="true">🌙</span>
-                </button>
             </nav>
 
+            <div class="header-actions">
+                <button id="nav-toggle" class="icon-btn nav-toggle" type="button" aria-label="Open menu"
+                    aria-expanded="false" aria-controls="site-nav">
+                    <svg class="icon icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+                        <line x1="4" x2="20" y1="7" y2="7" />
+                        <line x1="4" x2="20" y1="12" y2="12" />
+                        <line x1="4" x2="20" y1="17" y2="17" />
+                    </svg>
+                    <svg class="icon icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+                        <path d="M18 6 6 18M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
         </div>
     </header>
 
-    <main id="top">
-        <!-- Hero / About -->
-        <section id="about" class="section hero">
-            <div class="container hero-grid">
-                <div class="hero-text">
-                    <p class="eyebrow">PhD Researcher · AI in Optics & Medical AI</p>
-                    <h1 class="hero-title">Md Raihan Goni</h1>
-                    <p class="hero-subtitle">
-                        PhD candidate in Electronics and Electrical Engineering at the University of Nottingham,
-                        focusing on AI for biomedical optics, medical imaging, and signal processing.
-                    </p>
+    <main id="main">
+        <a id="top" tabindex="-1" aria-hidden="true"></a>
 
-                    <div class="hero-meta">
-                        <p><strong>Location:</strong> Nottingham, UK</p>
-                        <p><strong>Affiliations:</strong> University of Nottingham · Universiti Sains Malaysia ·
-                            North
-                            South University</p>
-                    </div>
+        <!-- ============ Hero ============ -->
+        <section id="about" class="hero" aria-label="Introduction">
+            <!-- Decorative optical waveform animation -->
+            <div class="hero-waves" aria-hidden="true">
+                <svg viewBox="0 0 1440 620" preserveAspectRatio="xMidYMid slice">
+                    <defs>
+                        <linearGradient id="waveFade" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0" stop-color="var(--accent)" stop-opacity="0" />
+                            <stop offset="0.5" stop-color="var(--accent)" stop-opacity="1" />
+                            <stop offset="1" stop-color="var(--accent)" stop-opacity="0" />
+                        </linearGradient>
+                    </defs>
+                    <g stroke="url(#waveFade)" fill="none">
+                        <path class="wave wave-a"
+                            d="M-200 360 Q -80 300 40 360 T 280 360 T 520 360 T 760 360 T 1000 360 T 1240 360 T 1480 360 T 1720 360"
+                            stroke-width="1.4" />
+                        <path class="wave wave-b"
+                            d="M-200 420 Q -60 365 80 420 T 360 420 T 640 420 T 920 420 T 1200 420 T 1480 420 T 1760 420"
+                            stroke-width="1.1" />
+                        <path class="wave wave-c"
+                            d="M-200 480 Q -40 435 120 480 T 440 480 T 760 480 T 1080 480 T 1400 480 T 1720 480"
+                            stroke-width="0.9" />
+                    </g>
+                </svg>
+            </div>
+
+            <div class="container hero-grid reveal">
+                <div class="hero-copy">
+                    <p class="eyebrow"><span class="eyebrow-dot"></span>PhD Researcher · AI in Optics — University of
+                        Nottingham</p>
+                    <h1 class="hero-name">Md Raihan&nbsp;Goni</h1>
+                    <p class="hero-lede">
+                        I build <strong>physics-informed AI</strong> for biomedical optics and medical imaging — from
+                        optical tissue characterization with hair-thin endoscopes to deep-learning architectures for
+                        cerebrovascular and tumour segmentation.
+                    </p>
 
                     <div class="hero-actions">
-                        <a href="https://orcid.org/0000-0002-2482-419X" target="_blank" class="btn secondary">
-                            ORCID
+                        <a class="btn btn-primary" href="mailto:raihan.goni.1994@gmail.com">
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect width="20" height="16" x="2" y="4" rx="2" />
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                            </svg>
+                            Get in touch
                         </a>
+                    </div>
 
-                        <a href="https://www.researchgate.net/profile/Md-Raihan-Goni/publications" target="_blank"
-                            class="btn secondary">
-                            ResearchGate
-                        </a>
-
-                        <a href="https://scholar.google.com/citations?user=3hI2wOgAAAAJ&hl=en" target="_blank"
-                            class="btn secondary">
+                    <div class="hero-links" aria-label="Profiles">
+                        <a class="profile-pill" href="https://scholar.google.com/citations?user=3hI2wOgAAAAJ&hl=en"
+                            target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path d="M12 2 1 9l11 7 9-5.727V17h2V9L12 2Z" />
+                                <path
+                                    d="M6 13.273v3.272C6 18.45 8.686 20 12 20s6-1.55 6-3.455v-3.272l-6 3.818-6-3.818Z"
+                                    fill="currentColor" opacity="0.55" />
+                            </svg>
                             Google Scholar
                         </a>
-
-                        <a href="https://www.linkedin.com/in/raihan-goni/" target="_blank" class="btn secondary">
+                        <a class="profile-pill" href="https://orcid.org/0000-0002-2482-419X" target="_blank"
+                            rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path
+                                    d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24ZM8.06 6.7a.93.93 0 1 1 0 1.86.93.93 0 0 1 0-1.86ZM7.2 9.9h1.7v7.4H7.2V9.9Zm3.2 0h3.28c3.12 0 4.5 2.23 4.5 3.7 0 1.6-1.25 3.7-4.45 3.7H10.4V9.9Zm1.7 1.54v4.32h1.4c2 0 2.74-1.5 2.74-2.16 0-1.07-.68-2.16-2.78-2.16h-1.36Z" />
+                            </svg>
+                            ORCID
+                        </a>
+                        <a class="profile-pill" href="https://www.linkedin.com/in/raihan-goni/" target="_blank"
+                            rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path
+                                    d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.8 0 0 .78 0 1.74v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.74C24 .78 23.2 0 22.22 0Z" />
+                            </svg>
                             LinkedIn
                         </a>
+                        <a class="profile-pill" href="https://github.com/RaihanG" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path
+                                    d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12.01 12.01 0 0 0 24 12.5C24 5.87 18.63.5 12 .5Z" />
+                            </svg>
+                            GitHub
+                        </a>
                     </div>
-                    <div class="hero-highlights">
-                        <div class="hero-highlight">
-                            <span class="hero-highlight-label">Focus</span>
-                            <span class="hero-highlight-value">AI for biomedical optics & imaging</span>
-                        </div>
-                        <div class="hero-highlight">
-                            <span class="hero-highlight-label">Teaching</span>
-                            <span class="hero-highlight-value">University-level teaching & supervision</span>
-                        </div>
-                        <div class="hero-highlight">
-                            <span class="hero-highlight-label">Background</span>
-                            <span class="hero-highlight-value">Academic experience across Bangladesh, Malaysia &
-                                UK</span>
-                        </div>
-                    </div>
-
                 </div>
 
-                <div class="hero-profile">
-                    <!-- Replace assets/profile.jpg with your own image path -->
-                    <div class="profile-image-wrapper">
-                        <img src="assets/profile1.jpeg" alt="Portrait of Md Raihan Goni"
-                            onerror="this.style.display='none'">
+                <div class="hero-portrait">
+                    <div class="portrait-frame">
+                        <img src="assets/profile.jpg" alt="Portrait of Md Raihan Goni" loading="eager" width="420"
+                            height="520">
+                        <div class="portrait-ring" aria-hidden="true"></div>
                     </div>
-                    <div class="profile-card">
-                        <h2>Current Position</h2>
-                        <p><strong>PhD (AI in Optics)</strong><br>
-                            University of Nottingham<br>
-                            2024 – present
-                        </p>
-                        <h3>Research Interests</h3>
-                        <ul>
-                            <li>AI for biomedical optics & imaging</li>
-                            <li>Medical image segmentation & analysis</li>
-                            <li>Biomedical signal processing</li>
-                            <li>Interpretable & physics-informed deep learning</li>
-                        </ul>
+                    <div class="portrait-badge">
+                        <span class="badge-dot" aria-hidden="true"></span>
+                        <span class="badge-label">Currently</span>
+                        <span class="badge-value">PhD · University of Nottingham</span>
+                        <span class="badge-meta">2024 — present</span>
                     </div>
+                </div>
+            </div>
+
+            <div class="container hero-stats reveal">
+                <div class="stat">
+                    <span class="stat-num" data-count="9">0</span>
+                    <span class="stat-label">Peer-reviewed papers</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num" data-count="4">0</span>
+                    <span class="stat-label">Scholarships &amp; awards</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num" data-count="3">0</span>
+                    <span class="stat-label">Countries of study</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num" data-count="5">0</span>
+                    <span class="stat-label">Years teaching</span>
                 </div>
             </div>
         </section>
 
-        <!-- Research Overview -->
+        <!-- ============ Neon scroll spine ============ -->
+        <div class="spine" aria-hidden="true">
+            <div class="spine-track"></div>
+            <div class="spine-beam" id="spine-beam"></div>
+        </div>
+
+        <!-- ============ Research ============ -->
         <section id="research" class="section">
             <div class="container">
-                <h2 class="section-title">Research Overview</h2>
-                <p>
-                    My research focuses on developing robust and interpretable AI methods for biomedical
-                    applications,
-                    particularly within optics and medical imaging. I am interested in combining deep learning
-                    with
-                    domain knowledge to improve diagnostic accuracy, reliability, and clinical relevance.
-                </p>
+                <header class="section-head reveal">
+                    <p class="kicker">Research</p>
+                    <h2 class="section-title">What I work on</h2>
+                    <p class="section-sub">Robust, interpretable AI that survives real clinical noise — bridging optics,
+                        signal processing, and deep learning.</p>
+                </header>
 
                 <div class="card-grid">
-                    <article class="card">
-                        <h3>AI in Biomedical Optics</h3>
-                        <p>
-                            Designing machine learning models to extract quantitative information from optical
-                            imaging
-                            systems,
-                            with a focus on improving reconstruction quality and interpretability.
-                        </p>
+                    <article class="card reveal">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                        </div>
+                        <h3>AI in Optics <span class="tag">PhD focus</span></h3>
+                        <p>Physics-informed AI for optical tissue characterization under noisy acquisition — building a
+                            translational SFDI-based optical-mapping pipeline for endoscopic imaging.</p>
+                        <ul class="card-list">
+                            <li>Robustness to device variability</li>
+                            <li>Clinically usable optical-property estimation</li>
+                            <li>Model interpretability &amp; evaluation</li>
+                        </ul>
                     </article>
 
-                    <article class="card">
+                    <article class="card reveal">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M12 2a3 3 0 0 0-3 3 3 3 0 0 0-3 3 3 3 0 0 0 0 6 3 3 0 0 0 3 3 3 3 0 0 0 6 0 3 3 0 0 0 3-3 3 3 0 0 0 0-6 3 3 0 0 0-3-3 3 3 0 0 0-3-3Z" />
+                                <path d="M12 5v14" />
+                            </svg>
+                        </div>
                         <h3>Medical Image Segmentation</h3>
-                        <p>
-                            Deep learning architectures for vascular and organ segmentation, including
-                            attention-based
-                            and kernel-filtering methods for cerebrovascular and lung imaging.
-                        </p>
+                        <p>Attention-driven deep architectures (ECA-SKFNet) for cerebrovascular vessel segmentation from
+                            TOF-MRA, plus brain-tumour and lung segmentation work.</p>
+                        <ul class="card-list">
+                            <li>Robust feature extraction</li>
+                            <li>Attention &amp; transfer learning</li>
+                            <li>Clinically relevant analysis</li>
+                        </ul>
                     </article>
 
-                    <article class="card">
-                        <h3>Interpretable Multi-Task Models</h3>
-                        <p>
-                            Multi-task conditional neural networks for discovering clinically meaningful
-                            patterns in
-                            complex imaging modalities, such as phonon microscopy.
-                        </p>
-                    </article>
-
-                    <article class="card">
-                        <h3>Human Activity & Behaviour Analysis</h3>
-                        <p>
-                            Computer vision and pose-based deep learning for tasks such as violence and crowd
-                            behaviour
-                            detection.
-                        </p>
+                    <article class="card reveal">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M3 12h4l3 8 4-16 3 8h4" />
+                            </svg>
+                        </div>
+                        <h3>Biomedical Signal Processing</h3>
+                        <p>Spatiotemporal feature extraction from phonon microscopy and predictive modelling on MEG
+                            signals — interpretable, multi-task neural networks for cell-level insight.</p>
+                        <ul class="card-list">
+                            <li>Phonon-microscopy cancer-cell analysis</li>
+                            <li>Dual-attention spatiotemporal models</li>
+                            <li>Interpretable multi-task learning</li>
+                        </ul>
                     </article>
                 </div>
             </div>
         </section>
 
-        <!-- Publications -->
+        <!-- ============ Publications ============ -->
         <section id="publications" class="section section-alt">
             <div class="container">
-                <h2 class="section-title">Publications</h2>
+                <header class="section-head reveal">
+                    <p class="kicker">Publications</p>
+                    <h2 class="section-title">Selected work</h2>
+                    <p class="section-sub">Peer-reviewed journal articles and conference papers. Choose a category, then
+                        click any paper to open it.</p>
+                </header>
 
-                <h3 class="subheading">Journal Articles</h3>
-                <ol class="pub-list">
+                <div class="pub-tabs reveal" role="tablist" aria-label="Publication type">
+                    <button class="pub-tab active" id="tab-journals" role="tab" aria-selected="true"
+                        aria-controls="panel-journals" data-target="journals" type="button">
+                        Journals <span class="pub-tab-count">4</span>
+                    </button>
+                    <button class="pub-tab" id="tab-conferences" role="tab" aria-selected="false"
+                        aria-controls="panel-conferences" data-target="conferences" type="button">
+                        Conferences <span class="pub-tab-count">5</span>
+                    </button>
+                </div>
+
+                <ol class="pub-list" id="panel-journals" role="tabpanel" aria-labelledby="tab-journals">
                     <li>
-                        Y. Zheng, R. Fuentes-Domínguez, <strong>Md Raihan Goni</strong>, M. Clark, A. McIntyre,
-                        G. S. D.
-                        Gordon, F. Pérez-Cota,
-                        <a href="https://doi.org/10.1109/JBHI.2025.3556599" target="_blank">“Interpretable
-                            Multi-Task
-                            Conditional Neural Networks Reveal Cancer Cell Adhesion
-                            Characteristics From Phonon Microscopy Images,”</a>
-                        <em>IEEE Journal of Biomedical and Health Informatics</em>, vol. 29, no. 9, 2025.
-                        <span class="pub-meta">DOI: 10.1109/JBHI.2025.3556599</span>
-                        <details>
-                            <summary class="paper-summary">Show Summary</summary>
-                            <div class="summary-content">
-                                Proposes a multi-task conditional neural network to analyze phonon microscopy
-                                images,
-                                revealing cancer cell adhesion characteristics with high interpretability.
-                            </div>
-                        </details>
+                        <a class="pub" href="https://doi.org/10.1109/JBHI.2025.3556599" target="_blank" rel="noopener">
+                            <span class="pub-title">Interpretable Multi-Task Conditional Neural Networks Reveal Cancer
+                                Cell Adhesion Characteristics From Phonon Microscopy Images</span>
+                            <span class="pub-authors">Y. Zheng, R. Fuentes-Domínguez, <strong>Md Raihan Goni</strong>,
+                                M. Clark, A. McIntyre, G. S. D. Gordon, F. Pérez-Cota</span>
+                            <span class="pub-venue"><em>IEEE Journal of Biomedical and Health Informatics</em>, vol. 29,
+                                no. 9, 2025 · <span class="mono">DOI: 10.1109/JBHI.2025.3556599</span></span>
+                            <span class="pub-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+                                </svg>
+                            </span>
+                        </a>
                     </li>
                     <li>
-                        Ahad, Yesmin, Ananna, Sumon, Hashem, <strong>Md Raihan Goni</strong>, M. Nabeel,
-                        <a href="https://doi.org/10.24507/icicel.17.09.1005" target="_blank">"Leveraging Pose
-                            Data
-                            Towards a More Generalized Violence Detection System,"</a>
-                        <em>ICIC Express Letters</em>, vol. 17, no. 9, pp. 1005–1011, 2023.
-                        <span class="pub-meta">DOI: 10.24507/icicel.17.09.1005</span>
-                        <details>
-                            <summary class="paper-summary">Show Summary</summary>
-                            <div class="summary-content">
-                                Investigates the use of pose estimation data to improve the generalization and
-                                accuracy
-                                of violence detection systems across different scenarios.
-                            </div>
-                        </details>
+                        <a class="pub" href="https://doi.org/10.1109/ACCESS.2022.3214987" target="_blank"
+                            rel="noopener">
+                            <span class="pub-title">Brain Vessel Segmentation Using Deep Learning — A Review</span>
+                            <span class="pub-authors"><strong>Md Raihan Goni</strong>, N. I. R. Ruhaiyem, M. Mustapha,
+                                A. Achuthan, C. M. N. Che Mohd Nassir</span>
+                            <span class="pub-venue"><em>IEEE Access</em>, vol. 10, pp. 111322–111336, 2022 · <span
+                                    class="mono">DOI: 10.1109/ACCESS.2022.3214987</span></span>
+                            <span class="pub-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+                                </svg>
+                            </span>
+                        </a>
                     </li>
                     <li>
-                        <strong>Md Raihan Goni</strong>, N. I. R. Ruhaiyem, M. Mustapha, A. Achuthan, C. M. N.
-                        Che Mohd
-                        Nassir,
-                        <a href="https://doi.org/10.1109/ACCESS.2022.3214987" target="_blank">“Brain Vessel
-                            Segmentation
-                            Using Deep Learning—A Review,”</a>
-                        <em>IEEE Access</em>, vol. 10, pp. 111322–111336, 2022.
-                        <span class="pub-meta">DOI: 10.1109/ACCESS.2022.3214987</span>
-                        <details>
-                            <summary class="paper-summary">Show Summary</summary>
-                            <div class="summary-content">
-                                A comprehensive review of deep learning techniques for brain vessel
-                                segmentation,
-                                highlighting current challenges and future research directions.
-                            </div>
-                        </details>
+                        <a class="pub" href="https://doi.org/10.24507/icicel.17.09.1005" target="_blank"
+                            rel="noopener">
+                            <span class="pub-title">Leveraging Pose Data Towards a More Generalized Violence Detection
+                                System</span>
+                            <span class="pub-authors">Ahad, Yesmin, Ananna, Sumon, Hashem, <strong>Md Raihan
+                                    Goni</strong>, M. Nabeel</span>
+                            <span class="pub-venue"><em>ICIC Express Letters</em>, vol. 17, no. 9, pp. 1005–1011, 2023 ·
+                                <span class="mono">DOI: 10.24507/icicel.17.09.1005</span></span>
+                            <span class="pub-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+                                </svg>
+                            </span>
+                        </a>
                     </li>
                     <li>
-                        S. S. A. Sumon, <strong>Md Raihan Goni</strong>, N. B. Hashem, T. Shahria, R. Rahman,
-                        <a href="https://doi.org/10.1142/S2196888820500013" target="_blank">“Violence Detection
-                            by
-                            Pretrained Modules with Different Deep Learning Approaches,”</a>
-                        <em>Vietnam Journal of Computer Science</em>, 7(1), 19–40, 2020.
-                        <span class="pub-meta">DOI: 10.1142/S2196888820500013</span>
-                        <details>
-                            <summary class="paper-summary">Show Summary</summary>
-                            <div class="summary-content">
-                                Investigates the use of pretrained modules for violence detection.
-                            </div>
-                        </details>
+                        <a class="pub" href="https://doi.org/10.1142/S2196888820500013" target="_blank"
+                            rel="noopener">
+                            <span class="pub-title">Violence Detection by Pretrained Modules with Different Deep Learning
+                                Approaches</span>
+                            <span class="pub-authors">S. S. A. Sumon, <strong>Md Raihan Goni</strong>, N. B. Hashem, T.
+                                Shahria, R. Rahman</span>
+                            <span class="pub-venue"><em>Vietnam Journal of Computer Science</em>, vol. 7, no. 1, pp.
+                                19–40, 2020 · <span class="mono">DOI: 10.1142/S2196888820500013</span></span>
+                            <span class="pub-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+                                </svg>
+                            </span>
+                        </a>
                     </li>
                 </ol>
 
-                <h3 class="subheading">Conference Papers</h3>
-                <ol class="pub-list">
+                <ol class="pub-list" id="panel-conferences" role="tabpanel" aria-labelledby="tab-conferences" hidden>
                     <li>
-                        <strong>Md Raihan Goni</strong>, Y. Zheng, R. Fuentes-Domínguez, F. Pérez-Cota, G. S. D. Gordon,
-                        <span>“Spatiotemporal Feature Extraction in Phonon Microscopy Using Dual Attention for Cancer
-                            Cell Classification”</span>,
-                        <em>European Conference on Biomedical Optics (ECBO)</em>, 2025.
-                        <details>
-                            <summary class="paper-summary">Show Summary</summary>
-                            <div class="summary-content">
-                                Introduces a dual attention mechanism to extract spatiotemporal features from phonon
-                                microscopy data for enhanced cancer cell classification.
-                            </div>
-                        </details>
+                        <a class="pub" href="https://doi.org/10.1364/ECBO.2025.S4D.8" target="_blank" rel="noopener">
+                            <span class="pub-title">Spatiotemporal Feature Extraction in Phonon Microscopy Using Dual
+                                Attention for Cancer Cell Classification</span>
+                            <span class="pub-authors"><strong>Md Raihan Goni</strong>, Y. Zheng, R. Fuentes-Domínguez,
+                                F. Pérez-Cota, G. S. D. Gordon</span>
+                            <span class="pub-venue"><em>European Conference on Biomedical Optics (ECBO)</em>, Munich,
+                                2025 · <span class="mono">DOI: 10.1364/ECBO.2025.S4D.8</span></span>
+                            <span class="pub-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+                                </svg>
+                            </span>
+                        </a>
                     </li>
                     <li>
-                        <strong>Md Raihan Goni</strong>,
-                        <span>“TL-AttSharpNet: Automated lung image segmentation using transfer learning with depthwise
-                            convolution and attention”</span>,
-                        <em>IEEE 2nd National Biomedical Engineering Conference (NBEC)</em>, 2023.
-                        <details>
-                            <summary class="paper-summary">Show Summary</summary>
-                            <div class="summary-content">
-                                Presents a transfer learning-based architecture with depthwise separable
-                                convolutions and attention for accurate lung image segmentation.
-                            </div>
-                        </details>
+                        <a class="pub" href="https://doi.org/10.1109/NBEC58134.2023.10352617" target="_blank"
+                            rel="noopener">
+                            <span class="pub-title">TL-AttSharpNet: Automated Lung Image Segmentation Using Transfer
+                                Learning with Depthwise Convolution and Attention</span>
+                            <span class="pub-authors"><strong>Md Raihan Goni</strong>, A. O. Ige, N. I. R.
+                                Ruhaiyem</span>
+                            <span class="pub-venue"><em>IEEE 2nd National Biomedical Engineering Conference
+                                    (NBEC)</em>, Melaka, 2023 · <span class="best-paper">Best Paper Award</span></span>
+                            <span class="pub-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+                                </svg>
+                            </span>
+                        </a>
                     </li>
                     <li>
-                        <strong>Md Raihan Goni</strong>, N. I. R. Ruhaiyem,
-                        <a href="https://doi.org/10.1109/ICOCO56118.2022.10031677" target="_blank">“Salient
-                            feature
-                            extraction using Attention for Brain Tumor segmentation,”</a>
-                        <em>IEEE International Conference on Computing (ICOCO)</em>, 2022.
-                        <details>
-                            <summary class="paper-summary">Show Summary</summary>
-                            <div class="summary-content">
-                                Proposes an attention-based U-Net variant (Att-Sharp-U-net) to extract salient
-                                features for improved brain tumor segmentation.
-                            </div>
-                        </details>
+                        <a class="pub" href="https://doi.org/10.1109/ICOCO56118.2022.10031677" target="_blank"
+                            rel="noopener">
+                            <span class="pub-title">Salient Feature Extraction Using Attention for Brain Tumor
+                                Segmentation</span>
+                            <span class="pub-authors"><strong>Md Raihan Goni</strong>, N. I. R. Ruhaiyem</span>
+                            <span class="pub-venue"><em>IEEE International Conference on Computing (ICOCO)</em>, Kota
+                                Kinabalu, 2022 · <span class="mono">DOI: 10.1109/ICOCO56118.2022.10031677</span></span>
+                            <span class="pub-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+                                </svg>
+                            </span>
+                        </a>
                     </li>
                     <li>
-                        <strong>Md Raihan Goni</strong>, T. Rahman,
-                        <a href="https://doi.org/10.1109/TENSYMP50017.2020.9230860" target="_blank">“Predictive
-                            Modeling on MEG Signal to Classify Hand and Wrist Movement using UNEQ and KNN,”</a>
-                        <em>IEEE Region 10 Symposium (TENSYMP)</em>, 2020.
-                        <details>
-                            <summary class="paper-summary">Show Summary</summary>
-                            <div class="summary-content">
-                                Develops a statistical approach using UNEQ and KNN classifiers to predict hand
-                                and
-                                wrist movements from MEG signals.
-                            </div>
-                        </details>
+                        <a class="pub" href="https://doi.org/10.1109/TENSYMP50017.2020.9230860" target="_blank"
+                            rel="noopener">
+                            <span class="pub-title">Predictive Modeling on MEG Signal to Classify Hand and Wrist
+                                Movement Using UNEQ and KNN</span>
+                            <span class="pub-authors"><strong>Md Raihan Goni</strong>, T. Rahman</span>
+                            <span class="pub-venue"><em>IEEE Region 10 Symposium (TENSYMP)</em>, 2020 · <span
+                                    class="mono">DOI: 10.1109/TENSYMP50017.2020.9230860</span></span>
+                            <span class="pub-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+                                </svg>
+                            </span>
+                        </a>
                     </li>
                     <li>
-                        S. S. A. Sumon, T. S., <strong>Md Raihan Goni</strong>, N. Hashem, A. Almarufuzzaman, R.
-                        Rahman,
-                        <a href="https://doi.org/10.1007/978-3-030-14799-0_53" target="_blank">“Violent Crowd
-                            Flow
-                            Detection Using Deep Learning,”</a>
-                        <em>Asian Conference on Intelligent Information and Database Systems (ACIIDS)</em>,
-                        Springer, Cham, 2019.
-                        <details>
-                            <summary class="paper-summary">Show Summary</summary>
-                            <div class="summary-content">
-                                Utilizes deep learning and a novel MoBSIFT descriptor to detect violent crowd
-                                flows,
-                                achieving high accuracy in complex scenes.
-                            </div>
-                        </details>
+                        <a class="pub" href="https://doi.org/10.1007/978-3-030-14799-0_53" target="_blank"
+                            rel="noopener">
+                            <span class="pub-title">Violent Crowd Flow Detection Using Deep Learning</span>
+                            <span class="pub-authors">S. S. A. Sumon, T. S., <strong>Md Raihan Goni</strong>, N. Hashem,
+                                A. Almarufuzzaman, R. Rahman</span>
+                            <span class="pub-venue"><em>Asian Conference on Intelligent Information and Database Systems
+                                    (ACIIDS)</em>, Springer, Cham, 2019 · <span class="mono">DOI:
+                                    10.1007/978-3-030-14799-0_53</span></span>
+                            <span class="pub-arrow" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7 17 17 7" /><path d="M7 7h10v10" />
+                                </svg>
+                            </span>
+                        </a>
                     </li>
                 </ol>
             </div>
         </section>
-        <section id="experience" class="section section-alt">
+
+        <!-- ============ Experience ============ -->
+        <section id="experience" class="section">
             <div class="container">
-                <h2 class="section-title">Professional Experience</h2>
+                <header class="section-head reveal">
+                    <p class="kicker">Experience</p>
+                    <h2 class="section-title">Academic experience</h2>
+                </header>
 
-                <div class="experience-layout">
-                    <!-- LEFT: clickable timeline -->
-                    <div class="timeline experience-timeline">
-                        <div class="timeline-item active" data-target="exp-phd">
-                            <div class="timeline-date">2024 – present</div>
-                            <div class="timeline-content">
-                                <h3>PhD Researcher (AI in Optics)</h3>
-                                <p class="muted">University of Nottingham, UK</p>
-                                <p>
-                                    Working on AI methods for optical imaging and biomedical signal
-                                    analysis,
-                                    with a
-                                    focus
-                                    on interpretable and physics-informed deep learning models.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item" data-target="exp-lecturer">
-                            <div class="timeline-date">2019 – 2024</div>
-                            <div class="timeline-content">
-                                <h3>Lecturer, Computer Science & Engineering</h3>
-                                <p class="muted">Southeast University, Dhaka, Bangladesh</p>
-                                <p>
-                                    Delivered undergraduate courses, developed course materials,
-                                    assessed
-                                    student
-                                    performance,
-                                    and supervised final-year projects.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item" data-target="exp-gra">
-                            <div class="timeline-date">2021 – 2023</div>
-                            <div class="timeline-content">
-                                <h3>Graduate Research Assistant</h3>
-                                <p class="muted">Universiti Sains Malaysia, Penang, Malaysia</p>
-                                <p>
-                                    Contributed to funded research projects under the Fundamental
-                                    Research Grant
-                                    Scheme
-                                    (FRGS),
-                                    focusing on deep learning for cerebrovascular segmentation.
-                                </p>
-                            </div>
+                <div class="timeline">
+                    <div class="tl-item reveal">
+                        <div class="tl-dot" aria-hidden="true"></div>
+                        <div class="tl-content">
+                            <span class="tl-date">2019 — 2024</span>
+                            <h3>Lecturer, Department of Computer Science &amp; Engineering</h3>
+                            <p class="tl-org">Southeast University · Dhaka, Bangladesh</p>
+                            <p>Delivered undergraduate courses, evaluated student performance, and supervised final-year
+                                projects.</p>
                         </div>
                     </div>
-
-                    <!-- RIGHT: details card that updates -->
-                    <aside class="experience-details">
-                        <div class="experience-card">
-                            <!-- Panel: PhD (default visible) -->
-                            <div class="experience-detail-panel active" id="exp-phd">
-                                <h3>Key responsibilities</h3>
-                                <p class="muted">PhD Researcher · University of Nottingham</p>
-                                <ul class="bullet-list">
-                                    <li>Design and evaluate deep learning models for optical imaging
-                                        and
-                                        biomedical
-                                        signals.</li>
-                                    <li>Integrate physics-informed constraints to improve robustness
-                                        and
-                                        interpretability.</li>
-                                    <li>Collaborate with engineering and clinical teams on
-                                        experimental design
-                                        and
-                                        analysis.</li>
-                                    <li>Prepare manuscripts, conference papers, and presentations.
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <!-- Panel: Lecturer -->
-                            <div class="experience-detail-panel" id="exp-lecturer">
-                                <h3>Key responsibilities</h3>
-                                <p class="muted">Lecturer · Southeast University</p>
-                                <ul class="bullet-list">
-                                    <li>Developed and delivered undergraduate courses in computer
-                                        science and
-                                        AI.</li>
-                                    <li>Supervised final-year projects and guided students on
-                                        research and
-                                        implementation.</li>
-                                    <li>Designed assessments, evaluated performance, and provided
-                                        academic
-                                        mentoring.
-                                    </li>
-                                    <li>Contributed to curriculum discussions and departmental
-                                        activities.</li>
-                                </ul>
-                            </div>
-
-                            <!-- Panel: GRA -->
-                            <div class="experience-detail-panel" id="exp-gra">
-                                <h3>Key responsibilities</h3>
-                                <p class="muted">Graduate Research Assistant · Universiti Sains
-                                    Malaysia</p>
-                                <ul class="bullet-list">
-                                    <li>Worked on an FRGS-funded project on cerebrovascular
-                                        segmentation.</li>
-                                    <li>Preprocessed medical imaging datasets and implemented deep
-                                        learning
-                                        pipelines.
-                                    </li>
-                                    <li>Ran experiments, analysed results, and contributed to
-                                        publications.</li>
-                                    <li>Supported collaborative work with supervisors and research
-                                        partners.
-                                    </li>
-                                </ul>
-                            </div>
+                    <div class="tl-item reveal">
+                        <div class="tl-dot" aria-hidden="true"></div>
+                        <div class="tl-content">
+                            <span class="tl-date">2022 — 2024</span>
+                            <h3>Teaching Assistant, Department of Computer Science</h3>
+                            <p class="tl-org">Universiti Sains Malaysia (USM) · Penang, Malaysia</p>
+                            <p>Led tutorial sessions for undergraduate students.</p>
                         </div>
-                    </aside>
+                    </div>
+                    <div class="tl-item reveal">
+                        <div class="tl-dot" aria-hidden="true"></div>
+                        <div class="tl-content">
+                            <span class="tl-date">2021 — 2023</span>
+                            <h3>Graduate Research Assistant, Department of Computer Science</h3>
+                            <p class="tl-org">Universiti Sains Malaysia (USM) · Penang, Malaysia</p>
+                            <p>Supported funded projects — overseeing experiments, analyzing findings, and writing
+                                scientific reports.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Education -->
+        <!-- ============ Education ============ -->
         <section id="education" class="section section-alt">
             <div class="container">
-                <h2 class="section-title">Education</h2>
+                <header class="section-head reveal">
+                    <p class="kicker">Education</p>
+                    <h2 class="section-title">Education</h2>
+                </header>
 
-                <div class="card-grid">
-                    <article class="card">
-                        <h3>PhD in Electronics & Electrical Engineering</h3>
-                        <p class="muted">University of Nottingham, Nottingham, UK · 2024 – present
-                        </p>
-                        <p><strong>Specialisation:</strong> AI in Optics / Biomedical Optics</p>
-                        <p><strong>Topic:</strong> Physics-Based AI for optical properties
-                            estimation for hair
-                            thin
-                            endoscopy device.</p>
+                <div class="card-grid edu-grid">
+                    <article class="card edu-card reveal">
+                        <span class="edu-year">2024 — present</span>
+                        <h3>Ph.D. (AI in Optics)</h3>
+                        <p class="edu-field">Electronics &amp; Electrical Engineering</p>
+                        <p class="edu-school">University of Nottingham · Nottingham, UK</p>
                     </article>
-
-                    <article class="card">
-                        <h3>MSc (by Research) in Computer Science</h3>
-                        <p class="muted">Universiti Sains Malaysia, Penang, Malaysia · 2021 – 2023
-                        </p>
-                        <p><strong>Specialisation:</strong> Medical Imaging, Segmentation</p>
-                        <p><strong>Thesis:</strong> ECA-SKFNet: Automatic cerebrovascular
-                            segmentation
-                            architecture for
-                            TOF-MRA images utilizing channel attention with spatial kernel
-                            filtering.</p>
+                    <article class="card edu-card reveal">
+                        <span class="edu-year">2021 — 2023</span>
+                        <h3>M.Sc. by Research</h3>
+                        <p class="edu-field">Computer Science</p>
+                        <p class="edu-school">Universiti Sains Malaysia · Penang, Malaysia</p>
                     </article>
-
-                    <article class="card">
-                        <h3>BSc in Computer Science & Engineering</h3>
-                        <p class="muted">North South University, Dhaka, Bangladesh · 2015 – 2019</p>
-                        <!-- <p><strong>CGPA:</strong> 3.80 / 4.00 (Above 93%)</p> -->
-                        <p><strong>Final year project:</strong> Violent crowd flow detection using
-                            deep
-                            learning.</p>
+                    <article class="card edu-card reveal">
+                        <span class="edu-year">2015 — 2019</span>
+                        <h3>B.Sc.</h3>
+                        <p class="edu-field">Computer Science &amp; Engineering · CGPA 3.80/4.00</p>
+                        <p class="edu-school">North South University · Dhaka, Bangladesh</p>
                     </article>
                 </div>
             </div>
         </section>
 
-        <!-- Awards & Grants -->
+        <!-- ============ Awards & Skills ============ -->
         <section id="awards" class="section">
-            <div class="container">
-                <h2 class="section-title">Awards & Grants</h2>
-                <ul class="bullet-list">
-                    <li>
-                        <strong>Faculty of Engineering International Scholarship</strong>,
-                        University of
-                        Nottingham,
-                        2024 – 2027.
-                    </li>
-                    <li>
-                        <strong>Best Paper Award</strong>, 2nd IEEE National Biomedical Engineering
-                        Conference,
-                        Malaysia, 2023.
-                    </li>
-                    <li>
-                        <strong>Malaysian International Scholarship</strong>, Ministry of Education
-                        Malaysia, 2022 –
-                        2024.
-                    </li>
-                    <li>
-                        <strong>Graduate Fellowship</strong>, Universiti Sains Malaysia, 2022 –
-                        2023.
-                    </li>
-                    <li>
-                        <strong>FRGS-Funded Project</strong> supporting MSc thesis research on
-                        cerebrovascular
-                        segmentation.
-                    </li>
-                </ul>
-
-                <h3 class="subheading">Technical Skills</h3>
-                <ul class="tag-list">
-                    <li>Python</li>
-                    <li>PyTorch</li>
-                    <li>Keras / TensorFlow</li>
-                    <li>NumPy</li>
-                    <li>Pandas</li>
-                    <li>Scikit-learn</li>
-                    <li>OpenCV</li>
-                    <li>ITK</li>
-                    <li>Nibabel</li>
-                    <li>Matplotlib</li>
-                    <li>Seaborn</li>
-                    <li>Medical image analysis</li>
-                    <li>Deep learning</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Meetings -->
-        <section id="meeting" class="section section-alt">
-            <div class="container">
-                <h2 class="section-title">Meetings</h2>
-                <p>
-                    I am happy to speak with students, collaborators, and colleagues about research
-                    ideas,
-                    ongoing projects, or potential supervision. If you would like to arrange a short
-                    call
-                    or meeting, you are very welcome to use one of the options below.
-                </p>
-
-                <div class="meeting-grid">
-                    <article class="meeting-card">
-                        <h3>Check my available times</h3>
-                        <p class="muted">
-                            Use the link below to choose from available time slots for a short
-                            online
-                            meeting.
-                        </p>
-                        <div class="meeting-actions">
-                            <a href="https://calendly.com" target="_blank" class="btn primary">
-                                Schedule meeting
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="meeting-card">
-                        <h3>Request a meeting by email</h3>
-                        <p class="muted">
-                            If you prefer, you can send me an email with a short note about your
-                            topic
-                            and a few times that work for you.
-                        </p>
-                        <div class="meeting-actions">
-                            <a class="btn primary"
-                                href="mailto:raihan.goni.1994@gmail.com">
-                                Email a meeting request
-                            </a>
-                        </div>
-                    </article>
+            <div class="container two-col">
+                <div class="col-awards">
+                    <header class="section-head reveal">
+                        <p class="kicker">Recognition</p>
+                        <h2 class="section-title">Awards &amp; grants</h2>
+                    </header>
+                    <ul class="award-list">
+                        <li class="reveal">
+                            <span class="award-year">2024 — 2027</span>
+                            <div>
+                                <strong>Faculty of Engineering International Scholarship</strong>
+                                <p>PhD scholarship, University of Nottingham.</p>
+                            </div>
+                        </li>
+                        <li class="reveal">
+                            <span class="award-year">2023</span>
+                            <div>
+                                <strong>Best Paper Award</strong>
+                                <p>2nd IEEE National Biomedical Engineering Conference, Malaysia.</p>
+                            </div>
+                        </li>
+                        <li class="reveal">
+                            <span class="award-year">2022 — present</span>
+                            <div>
+                                <strong>Malaysian International Scholarship</strong>
+                                <p>Awarded to 100 postgraduates by the Ministry of Education, Malaysia.</p>
+                            </div>
+                        </li>
+                        <li class="reveal">
+                            <span class="award-year">2022 — 2023</span>
+                            <div>
+                                <strong>Graduate Fellowship, USM</strong>
+                                <p>Research-based fellowship, Universiti Sains Malaysia.</p>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-            </div>
-        </section>
 
-        <!-- Beyond Research / Personal -->
-        <section id="beyond-research" class="section section-alt">
-            <div class="container">
-                <h2 class="section-title">Beyond research</h2>
-                <p>
-                    Outside of formal research, I enjoy activities that help me recharge, stay
-                    curious,
-                    and connect
-                    with people from different backgrounds.
-                </p>
-
-                <div class="two-column">
-                    <div>
-                        <h3>Hobbies & interests</h3>
-                        <ul class="bullet-list">
-                            <li>
-                                <strong>Games & storytelling:</strong> I enjoy story-driven and
-                                strategy
-                                games, and I am
-                                often curious about the systems and design behind them.
-                            </li>
-                            <li>
-                                <strong>Travel & photography:</strong> I like exploring new places,
-                                noticing small
-                                details in everyday life, and occasionally capturing them with a
-                                camera.
-                            </li>
-                            <li>
-                                <strong>Sports & outdoor time:</strong> I enjoy casual games like
-                                badminton and taking
-                                time to walk, reflect, and reset.
-                            </li>
-                            <li>
-                                <strong>Learning about education & AI:</strong> I am interested in
-                                how
-                                people learn,
-                                how AI changes that process, and how we can use technology
-                                responsibly.
-                            </li>
-                        </ul>
+                <div class="col-skills">
+                    <header class="section-head reveal">
+                        <p class="kicker">Toolkit</p>
+                        <h2 class="section-title">Skills</h2>
+                    </header>
+                    <div class="skill-group reveal">
+                        <h4>Domain expertise</h4>
+                        <div class="chips">
+                            <span>Physics-Informed AI</span><span>Multimodal Medical Imaging</span><span>SFDI</span><span>Semantic
+                                Segmentation</span>
+                        </div>
                     </div>
-
-                    <div>
-                        <h3>Co-curricular activities</h3>
-                        <ul class="bullet-list">
-                            <li>
-                                Participating in programming and AI-related competitions, workshops,
-                                and
-                                student-led
-                                events.
-                            </li>
-                            <li>
-                                Supporting students and peers through mentoring, informal advising,
-                                and
-                                collaborative
-                                project work.
-                            </li>
-                            <li>
-                                Engaging in discussions on AI, ethics, and higher education, and
-                                sharing
-                                experiences
-                                across different academic systems.
-                            </li>
-                            <li>
-                                Taking part in community or university activities that connect
-                                technology with
-                                real-world
-                                impact.
-                            </li>
-                        </ul>
+                    <div class="skill-group reveal">
+                        <h4>Deep learning</h4>
+                        <div class="chips">
+                            <span>PyTorch</span><span>TensorFlow / Keras</span>
+                        </div>
+                    </div>
+                    <div class="skill-group reveal">
+                        <h4>Programming &amp; scientific computing</h4>
+                        <div class="chips">
+                            <span>Python</span><span>MATLAB</span><span>NumPy</span><span>Pandas</span><span>scikit-learn</span><span>OpenCV</span><span>ITK</span><span>NiBabel</span>
+                        </div>
+                    </div>
+                    <div class="skill-group reveal">
+                        <h4>Visualization &amp; tooling</h4>
+                        <div class="chips">
+                            <span>Matplotlib</span><span>Seaborn</span><span>Weights &amp; Biases</span><span>Git</span><span>Linux</span><span>Azure</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact -->
+        <!-- ============ Contact ============ -->
         <section id="contact" class="section section-alt">
-            <div class="container">
-                <h2 class="section-title">Contact</h2>
-                <p>
-                    I am open to research collaborations in AI for biomedical optics, medical
-                    imaging,
-                    biomedical signal processing or any related fields.
-                </p>
-
-                <div style="margin-top: 2rem;">
-                    <p><strong>Email:</strong> <a
-                            href="mailto:raihan.goni.1994@gmail.com">raihan.goni.1994@gmail.com</a>
-                    </p>
-                    <p><strong>Location:</strong> Nottingham, United Kingdom</p>
-                </div>
-
-                <div class="social-links">
-                    <!-- ORCID -->
-                    <a href="https://orcid.org/0000-0002-2482-419X" target="_blank" class="social-icon"
-                        aria-label="ORCID">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.016-5.325 5.016h-3.919V7.416zm1.444 1.303v7.444h2.297c2.359 0 4.053-1.666 4.053-3.722 0-2.056-1.694-3.722-4.053-3.722h-2.297z" />
-                        </svg>
-                    </a>
-
-                    <!-- Google Scholar -->
-                    <a href="https://scholar.google.com/citations?user=3hI2wOgAAAAJ&hl=en" target="_blank"
-                        class="social-icon" aria-label="Google Scholar">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z" />
-                        </svg>
-                    </a>
-
-                    <!-- LinkedIn -->
-                    <a href="https://www.linkedin.com/in/raihan-goni/" target="_blank" class="social-icon"
-                        aria-label="LinkedIn">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                        </svg>
-                    </a>
-
-                    <!-- GitHub -->
-                    <a href="https://github.com/RaihanG" target="_blank" class="social-icon" aria-label="GitHub">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                        </svg>
-                    </a>
-                </div>
+            <div class="container contact-wrap reveal">
+                <p class="kicker">Contact</p>
+                <h2 class="section-title">Let's collaborate</h2>
+                <p class="contact-lede">Open to research collaborations, talks, and questions about AI for biomedical
+                    optics and medical imaging.</p>
+                <a class="btn btn-primary contact-cta" href="mailto:raihan.goni.1994@gmail.com">
+                    <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect width="20" height="16" x="2" y="4" rx="2" />
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                    </svg>
+                    raihan.goni.1994@gmail.com
+                </a>
             </div>
         </section>
     </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Md Raihan Goni. All rights reserved.</p>
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>© <span id="year"></span> Md Raihan Goni · Nottingham, UK</p>
+            <a href="#top" class="back-top">Back to top
+                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="m18 15-6-6-6 6" />
+                </svg>
+            </a>
         </div>
     </footer>
 
-    <script>
-        // Experience section: switch detail panel when clicking timeline items
-        const expItems = document.querySelectorAll('.experience-timeline .timeline-item[data-target]');
-        const expPanels = document.querySelectorAll('.experience-detail-panel');
-
-        expItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const targetId = item.getAttribute('data-target');
-
-                // update active state on timeline
-                expItems.forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
-
-                // show matching panel on the right
-                expPanels.forEach(panel => {
-                    panel.classList.toggle('active', panel.id === targetId);
-                });
-            });
-        });
-
-
-        // Scroll reveal animation
-        const revealElements = document.querySelectorAll(
-            '.section, .card, .timeline-item, .hero-profile, .hero-text'
-        );
-        revealElements.forEach(el => el.classList.add('reveal'));
-
-        const observer = new IntersectionObserver(
-            (entries, obs) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        obs.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.15 }
-        );
-        revealElements.forEach(el => observer.observe(el));
-
-        // Theme toggle
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-toggle-icon');
-
-        function updateThemeIcon() {
-            if (!themeIcon || !themeToggleBtn) return;
-            const isDark = document.body.classList.contains('dark-theme');
-            themeIcon.textContent = isDark ? '☀️' : '🌙';
-            themeToggleBtn.setAttribute(
-                'aria-label',
-                isDark ? 'Switch to light mode' : 'Switch to dark mode'
-            );
-        }
-
-        function applyTheme(theme) {
-            if (theme === 'dark') {
-                document.body.classList.add('dark-theme');
-            } else {
-                document.body.classList.remove('dark-theme');
-            }
-            localStorage.setItem('theme', theme);
-            updateThemeIcon();
-        }
-
-        const storedTheme = localStorage.getItem('theme');
-
-        if (storedTheme === 'dark' || storedTheme === 'light') {
-            // Respect user’s explicit choice
-            applyTheme(storedTheme);
-        } else {
-            // Default to dark if nothing chosen yet
-            applyTheme('dark');
-        }
-
-
-        if (themeToggleBtn) {
-            themeToggleBtn.addEventListener('click', () => {
-                const isDark = document.body.classList.contains('dark-theme');
-                applyTheme(isDark ? 'light' : 'dark');
-            });
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
