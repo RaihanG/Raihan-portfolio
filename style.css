@@ -344,6 +344,17 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
     color: var(--accent); background: var(--accent-soft); padding: 2px 8px; border-radius: 6px; margin-left: 2px;
 }
 
+/* ---------- News ---------- */
+.news-list { display: flex; flex-direction: column; max-width: 760px; }
+.news-list li {
+    display: grid; grid-template-columns: 110px 1fr; gap: 18px; align-items: baseline;
+    padding: 15px 0; border-bottom: 1px solid var(--border-soft);
+}
+.news-list li:last-child { border-bottom: none; }
+.news-date { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); letter-spacing: 0.03em; white-space: nowrap; }
+.news-list p { color: var(--text-soft); font-size: 0.97rem; }
+.news-list strong { color: var(--text); font-weight: 600; }
+
 /* ---------- Timeline ---------- */
 .timeline { position: relative; padding-left: 34px; }
 .timeline::before {
@@ -437,6 +448,7 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
     .pub-tabs { display: flex; width: 100%; }
     .pub-tab { flex: 1; justify-content: center; padding: 10px 12px; }
     .award-list li { grid-template-columns: 1fr; gap: 4px; }
+    .news-list li { grid-template-columns: 1fr; gap: 4px; }
 }
 
 /* ---------- Reduced motion ---------- */
