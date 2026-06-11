@@ -369,11 +369,14 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
 
 .news-list { display: flex; flex-direction: column; padding: 2px 22px 16px; }
 .news-list li {
-    display: grid; grid-template-columns: 58px 1fr; gap: 16px; align-items: baseline;
-    padding: 12px 0; border-bottom: 1px solid var(--border-soft);
+    position: relative; padding: 12px 0 12px 24px;
+    border-bottom: 1px solid var(--border-soft);
+}
+.news-list li::before {
+    content: ""; position: absolute; left: 4px; top: 21px; width: 8px; height: 8px;
+    border-radius: 2px; background: var(--accent); opacity: 0.7; transform: rotate(45deg);
 }
 .news-list li:last-child { border-bottom: none; }
-.news-date { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); letter-spacing: 0.03em; white-space: nowrap; }
 .news-list p { color: var(--text-soft); font-size: 0.95rem; }
 .news-list strong { color: var(--text); font-weight: 600; }
 
@@ -475,7 +478,6 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
     .pub-tabs { display: flex; width: 100%; }
     .pub-tab { flex: 1; justify-content: center; padding: 10px 12px; }
     .award-list li { grid-template-columns: 1fr; gap: 4px; }
-    .news-list li { grid-template-columns: 1fr; gap: 4px; }
 }
 
 /* ---------- Reduced motion ---------- */
