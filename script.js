@@ -147,17 +147,4 @@
     pubTabs.forEach(function (tab) {
         tab.addEventListener("click", function () { selectPubTab(tab.getAttribute("data-target")); });
     });
-
-    /* ---------- News: auto-count items per year ---------- */
-    // Counts are generated from the actual <li> items, so adding or removing
-    // a news entry in the HTML updates the pill automatically.
-    document.querySelectorAll(".news-year").forEach(function (year) {
-        var n = year.querySelectorAll(".news-list li").length;
-        var label = year.querySelector(".news-year-label");
-        if (!label || !n) return;
-        var pill = document.createElement("span");
-        pill.className = "news-count";
-        pill.textContent = n + (n === 1 ? " update" : " updates");
-        label.insertAdjacentElement("afterend", pill);
-    });
 })();
