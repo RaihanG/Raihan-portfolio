@@ -251,53 +251,26 @@
                 </header>
 
                 <div class="card-grid">
-                    <details class="card card-expand reveal">
-                        <summary>
-                            <div class="card-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-                                    <circle cx="12" cy="12" r="3" />
-                                </svg>
-                            </div>
-                            <h3>AI in Biomedical Optics <span class="tag">PhD focus</span></h3>
-                            <p>Using light to see inside the body, and AI to make those readings reliable enough for the
-                                clinic.</p>
-                            <span class="card-expand-hint">
-                                <span class="hint-text">2 current projects</span>
-                                <svg class="card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <path d="m6 9 6 6 6-6" />
-                                </svg>
-                            </span>
-                        </summary>
-
-                        <div class="card-projects">
-                            <article class="mini-project">
-                                <div class="mini-head">
-                                    <h4>Optical mapping of tissue with SFDI</h4>
-                                    <span class="mini-status active"><span class="status-dot"></span>Active</span>
-                                </div>
-                                <p>Spatial frequency domain imaging shines patterned light on tissue to reveal what lies
-                                    just beneath the surface, without any cutting or biopsy. The signal is often noisy and
-                                    changes from one device to another. I build AI that cleans these readings and keeps
-                                    them trustworthy, so doctors could one day map suspicious tissue during a normal
-                                    examination.</p>
-                            </article>
-
-                            <article class="mini-project">
-                                <div class="mini-head">
-                                    <h4>Tracheal PPG for SpO&#8322; in ventilated patients</h4>
-                                    <span class="mini-status active"><span class="status-dot"></span>Active</span>
-                                </div>
-                                <p>Standard finger oximeters often fail for critically ill patients on a ventilator,
-                                    because blood flow to the fingertips drops. A sensor placed on the breathing tube can
-                                    still reach a strong pulse, but the breathing machine drowns the heartbeat signal. I
-                                    use AI to separate the heartbeat from the machine noise, so oxygen levels can be read
-                                    accurately for patients where it matters most.</p>
-                            </article>
+                    <button class="card card-toggle reveal" type="button" data-panel="panel-optics"
+                        aria-expanded="false" aria-controls="panel-optics">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
                         </div>
-                    </details>
+                        <h3>AI in Biomedical Optics <span class="tag">PhD focus</span></h3>
+                        <p>Using light to see inside the body, and AI to make those readings reliable enough for the
+                            clinic.</p>
+                        <span class="card-toggle-hint">
+                            <span class="hint-text">View 2 current projects</span>
+                            <svg class="card-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="m6 9 6 6 6-6" />
+                            </svg>
+                        </span>
+                    </button>
 
                     <article class="card reveal">
                         <div class="card-icon">
@@ -333,6 +306,67 @@
                             <li>Interpretable multi-task learning</li>
                         </ul>
                     </article>
+                </div>
+
+                <!-- Full-width project panel, revealed by the AI in Biomedical Optics card -->
+                <div class="project-panel" id="panel-optics" hidden>
+                    <div class="project-panel-head">
+                        <h3>AI in Biomedical Optics: current projects</h3>
+                        <button class="project-panel-close" type="button" aria-label="Close projects">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                stroke-linecap="round" aria-hidden="true">
+                                <path d="M18 6 6 18M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="project-cards">
+                        <!-- Project: SFDI -->
+                        <article class="project-card">
+                            <div class="project-card-head">
+                                <h4>Optical mapping of tissue with SFDI</h4>
+                                <span class="mini-status active"><span class="status-dot"></span>Active</span>
+                            </div>
+                            <p>Spatial frequency domain imaging shines patterned light on tissue to reveal what lies just
+                                beneath the surface, without any cutting or biopsy. The signal is often noisy and changes
+                                from one device to another. I build AI that cleans these readings and keeps them
+                                trustworthy, so doctors could one day map suspicious tissue during a normal examination.
+                            </p>
+                            <ul class="project-tags">
+                                <li>SFDI</li>
+                                <li>Physics-informed AI</li>
+                                <li>Optical imaging</li>
+                            </ul>
+                            <!-- Updates go here later:
+                            <ul class="project-updates">
+                                <li><span class="update-date">Jun 2026</span> First in-vivo results.</li>
+                            </ul>
+                            -->
+                        </article>
+
+                        <!-- Project: PPG -->
+                        <article class="project-card">
+                            <div class="project-card-head">
+                                <h4>Tracheal PPG for SpO&#8322; in ventilated patients</h4>
+                                <span class="mini-status active"><span class="status-dot"></span>Active</span>
+                            </div>
+                            <p>Standard finger oximeters often fail for critically ill patients on a ventilator, because
+                                blood flow to the fingertips drops. A sensor placed on the breathing tube can still reach a
+                                strong pulse, but the breathing machine drowns the heartbeat signal. I use AI to separate
+                                the heartbeat from the machine noise, so oxygen levels can be read accurately for patients
+                                where it matters most.</p>
+                            <ul class="project-tags">
+                                <li>PPG</li>
+                                <li>SpO&#8322; estimation</li>
+                                <li>Signal denoising</li>
+                            </ul>
+                            <!-- Updates go here later:
+                            <ul class="project-updates">
+                                <li><span class="update-date">Jun 2026</span> Experiments complete; writing paper.</li>
+                            </ul>
+                            -->
+                        </article>
+                    </div>
                 </div>
             </div>
         </section>

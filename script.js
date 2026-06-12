@@ -148,6 +148,39 @@
         tab.addEventListener("click", function () { selectPubTab(tab.getAttribute("data-target")); });
     });
 
+    /* ---------- Research topic cards -> full-width project panel ---------- */
+    var cardToggles = Array.prototype.slice.call(document.querySelectorAll(".card-toggle"));
+    function closePanel(toggle) {
+        var panel = document.getElementById(toggle.getAttribute("data-panel"));
+        toggle.setAttribute("aria-expanded", "false");
+        if (panel) panel.hidden = true;
+    }
+    function openPanel(toggle) {
+        var panel = document.getElementById(toggle.getAttribute("data-panel"));
+        // Close any other open toggles first (one panel at a time).
+        cardToggles.forEach(function (t) { if (t !== toggle) closePanel(t); });
+        toggle.setAttribute("aria-expanded", "true");
+        if (panel) {
+            panel.hidden = false;
+            panel.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "nearest" });
+        }
+    }
+    cardToggles.forEach(function (toggle) {
+        toggle.addEventListener("click", function () {
+            var isOpen = toggle.getAttribute("aria-expanded") === "true";
+            if (isOpen) closePanel(toggle); else openPanel(toggle);
+        });
+    });
+    document.querySelectorAll(".project-panel-close").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+            var panel = btn.closest(".project-panel");
+            if (!panel) return;
+            panel.hidden = true;
+            var owner = document.querySelector('.card-toggle[data-panel="' + panel.id + '"]');
+            if (owner) { owner.setAttribute("aria-expanded", "false"); owner.focus(); }
+        });
+    });
+
     /* ---------- Email obfuscation (anti-scrape) ---------- */
     document.querySelectorAll(".js-email").forEach(function (el) {
         var encoded = el.getAttribute("data-e");
