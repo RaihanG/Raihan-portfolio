@@ -65,7 +65,7 @@
             var parent = el.parentElement;
             var key = parent ? (parent.className || "x") : "x";
             groups[key] = groups[key] || [];
-            if (el.matches(".card, .pub, .tl-item, .chips, .skill-group, .project") || el.parentElement.matches(".award-list")) {
+            if (el.matches(".card, .pub, .tl-item, .chips, .skill-group") || el.parentElement.matches(".award-list")) {
                 el.style.setProperty("--d", (groups[key].length * 70) + "ms");
             }
             groups[key].push(el);
