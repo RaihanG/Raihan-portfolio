@@ -84,6 +84,7 @@
             <nav class="site-nav" id="site-nav" aria-label="Primary">
                 <a href="#about">About</a>
                 <a href="#research">Research</a>
+                <a href="#projects">Projects</a>
                 <a href="#publications">Publications</a>
                 <a href="#experience">Experience</a>
                 <a href="#education">Education</a>
@@ -306,8 +307,110 @@
             </div>
         </section>
 
+        <!-- ============ Current Projects ============ -->
+        <section id="projects" class="section section-alt">
+            <div class="container">
+                <header class="section-head reveal">
+                    <p class="kicker">Current Projects</p>
+                    <h2 class="section-title">What I'm building now</h2>
+                    <p class="section-sub">Active research threads — the problem, how I'm approaching it, and why it
+                        matters beyond the lab.</p>
+                </header>
+
+                <div class="project-list">
+
+                    <!-- Project 1 -->
+                    <article class="project reveal">
+                        <div class="project-media" aria-hidden="true">
+                            <!-- Replace this placeholder with: <img src="assets/project-sfdi.jpg" alt="..."> -->
+                            <svg class="project-glyph" viewBox="0 0 120 120" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 70s20-40 50-40 50 40 50 40-20 40-50 40-50-40-50-40Z" opacity="0.5" />
+                                <circle cx="60" cy="70" r="16" />
+                                <path d="M60 38v-12M60 114v-12M16 70H4M116 70h-12" opacity="0.4" />
+                            </svg>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-head">
+                                <h3>Physics-Informed AI for Endoscopic Optical Mapping</h3>
+                                <span class="project-status">
+                                    <span class="status-dot"></span>Active · PhD core
+                                </span>
+                            </div>
+                            <div class="project-block">
+                                <span class="project-label">The problem</span>
+                                <p>Optical-property estimation from spatial-frequency-domain imaging (SFDI) breaks down
+                                    under the noise and device variability of real endoscopic acquisition — limiting its
+                                    use inside the body.</p>
+                            </div>
+                            <div class="project-block">
+                                <span class="project-label">The approach</span>
+                                <p>A physics-informed deep-learning pipeline that embeds the optical forward model into
+                                    the network, so estimates stay physically plausible even on noisy, out-of-distribution
+                                    clinical data.</p>
+                            </div>
+                            <div class="project-block">
+                                <span class="project-label">Real-world impact</span>
+                                <p>Toward hair-thin endoscopes that map tissue optical properties in vivo — earlier,
+                                    less-invasive detection of disease in tissue that's hard to reach today.</p>
+                            </div>
+                            <ul class="project-tags">
+                                <li>SFDI</li>
+                                <li>Physics-informed ML</li>
+                                <li>Endoscopic imaging</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <!-- Project 2 -->
+                    <article class="project reveal">
+                        <div class="project-media" aria-hidden="true">
+                            <!-- Replace this placeholder with: <img src="assets/project-vessel.jpg" alt="..."> -->
+                            <svg class="project-glyph" viewBox="0 0 120 120" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M60 10v40M60 50 35 75M60 50l25 25M35 75v25M85 75v25M35 75H18M85 75h17"
+                                    opacity="0.85" />
+                                <circle cx="60" cy="10" r="6" /><circle cx="35" cy="100" r="6" />
+                                <circle cx="85" cy="100" r="6" /><circle cx="18" cy="75" r="5" opacity="0.6" />
+                                <circle cx="102" cy="75" r="5" opacity="0.6" />
+                            </svg>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-head">
+                                <h3>Robust Cerebrovascular Segmentation from TOF-MRA</h3>
+                                <span class="project-status">
+                                    <span class="status-dot"></span>Active
+                                </span>
+                            </div>
+                            <div class="project-block">
+                                <span class="project-label">The problem</span>
+                                <p>Brain-vessel segmentation models trained on one scanner or protocol degrade sharply on
+                                    another — fragile exactly where clinicians need reliability.</p>
+                            </div>
+                            <div class="project-block">
+                                <span class="project-label">The approach</span>
+                                <p>Attention-driven architectures (ECA-SKFNet) with transfer learning, designed for robust
+                                    feature extraction across acquisition conditions rather than a single dataset.</p>
+                            </div>
+                            <div class="project-block">
+                                <span class="project-label">Real-world impact</span>
+                                <p>More dependable vessel maps support stroke-risk and cerebrovascular assessment that
+                                    generalise across hospitals and machines.</p>
+                            </div>
+                            <ul class="project-tags">
+                                <li>TOF-MRA</li>
+                                <li>Attention networks</li>
+                                <li>Medical segmentation</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
         <!-- ============ Publications ============ -->
-        <section id="publications" class="section section-alt">
+        <section id="publications" class="section">
             <div class="container">
                 <header class="section-head reveal">
                     <p class="kicker">Publications</p>
