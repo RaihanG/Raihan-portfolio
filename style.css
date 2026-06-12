@@ -179,7 +179,7 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
     position: relative; z-index: 1;
     display: grid; grid-template-columns: 1.35fr 0.85fr; gap: 56px; align-items: start;
 }
-.hero-portrait { margin-top: 8px; }
+.hero-portrait { margin-top: 48px; }
 .eyebrow {
     display: inline-flex; align-items: center; gap: 9px;
     font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em;
@@ -197,9 +197,10 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
 .hero-about { font-size: clamp(0.98rem, 1.4vw, 1.06rem); line-height: 1.7; color: var(--text-soft); max-width: 60ch; margin-bottom: 16px; text-align: justify; text-justify: inter-word; hyphens: auto; }
 .hero-about:last-of-type { margin-bottom: 0; }
 
-.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 22px; }
-
-.hero-links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 16px; }
+.hero-cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 30px; }
+.hero-links { display: contents; }
+.hero-cta-row .profile-pill { padding: 9px 13px; font-size: 0.85rem; gap: 7px; }
+.hero-cta-row .profile-pill svg { width: 16px; height: 16px; }
 .profile-pill {
     display: inline-flex; align-items: center; gap: 9px;
     font-size: 0.9rem; font-weight: 500; color: var(--text-soft);
