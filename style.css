@@ -245,8 +245,8 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
 }
 .stat { display: flex; flex-direction: column; gap: 4px; }
 .stat-num { font-family: var(--font-display); font-size: clamp(1.9rem, 3.4vw, 2.6rem); font-weight: 600; color: var(--text); }
-.stat-num::after { content: "+"; color: var(--accent); }
-.stat:nth-child(3) .stat-num::after, .stat:nth-child(4) .stat-num::after { content: ""; }
+.stat-num::after { content: ""; }
+.stat.has-plus .stat-num::after { content: "+"; color: var(--accent); }
 .stat-label { font-size: 0.85rem; color: var(--text-mute); }
 .stat-note { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-mute); margin-top: 14px; opacity: 0.8; }
 
