@@ -147,4 +147,15 @@
     pubTabs.forEach(function (tab) {
         tab.addEventListener("click", function () { selectPubTab(tab.getAttribute("data-target")); });
     });
+
+    /* ---------- Email obfuscation (anti-scrape) ---------- */
+    document.querySelectorAll(".js-email").forEach(function (el) {
+        var encoded = el.getAttribute("data-e");
+        if (!encoded) return;
+        var email = atob(encoded);
+        el.href = "mailto:" + email;
+        var textEl = el.querySelector(".js-email-text");
+        if (textEl) textEl.textContent = email;
+    });
+
 })();
