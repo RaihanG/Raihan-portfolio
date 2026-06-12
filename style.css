@@ -240,7 +240,7 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
 /* Hero stats */
 .hero-stats {
     position: relative; z-index: 1; margin-top: 58px;
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
     border-top: 1px solid var(--border-soft); padding-top: 30px;
 }
 .stat { display: flex; flex-direction: column; gap: 4px; }
