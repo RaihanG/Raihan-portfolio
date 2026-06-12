@@ -177,8 +177,9 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
 
 .hero-grid {
     position: relative; z-index: 1;
-    display: grid; grid-template-columns: 1.35fr 0.85fr; gap: 56px; align-items: center;
+    display: grid; grid-template-columns: 1.35fr 0.85fr; gap: 56px; align-items: start;
 }
+.hero-portrait { margin-top: 64px; }
 .eyebrow {
     display: inline-flex; align-items: center; gap: 9px;
     font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em;
@@ -188,8 +189,13 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 
 .hero-name { font-size: clamp(2.7rem, 6vw, 4.6rem); font-weight: 600; letter-spacing: -0.02em; margin-bottom: 22px; }
-.hero-lede { font-size: clamp(1.05rem, 1.6vw, 1.22rem); color: var(--text-soft); max-width: 56ch; margin-bottom: 30px; }
-.hero-lede strong { color: var(--text); font-weight: 600; }
+.hero-lede {
+    font-family: var(--font-display); font-size: clamp(1.25rem, 2vw, 1.6rem); font-weight: 500;
+    line-height: 1.4; color: var(--text); max-width: 50ch; margin-bottom: 20px;
+}
+.hero-lede strong { color: var(--accent); font-weight: 600; }
+.hero-about { font-size: clamp(0.98rem, 1.4vw, 1.06rem); line-height: 1.7; color: var(--text-soft); max-width: 60ch; margin-bottom: 16px; }
+.hero-about:last-of-type { margin-bottom: 30px; }
 
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 26px; }
 
@@ -271,16 +277,6 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
 .kicker { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
 .section-title { font-size: clamp(1.7rem, 3.5vw, 2.5rem); letter-spacing: -0.01em; margin-bottom: 14px; }
 .section-sub { color: var(--text-soft); font-size: 1.04rem; }
-
-/* ---------- About ---------- */
-.about-prose { max-width: 760px; }
-.about-prose p { color: var(--text-soft); font-size: 1.06rem; line-height: 1.75; margin-bottom: 20px; }
-.about-prose p:last-child { margin-bottom: 0; }
-.about-lead {
-    font-family: var(--font-display); font-size: clamp(1.3rem, 2.6vw, 1.7rem) !important;
-    line-height: 1.4 !important; color: var(--text) !important; font-weight: 500;
-    border-left: 3px solid var(--accent); padding-left: 20px; margin-bottom: 28px !important;
-}
 
 /* ---------- Cards ---------- */
 .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
@@ -535,7 +531,7 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
 @media (max-width: 920px) {
     .spine { display: none; }
     .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-    .hero-portrait { order: -1; justify-self: start; }
+    .hero-portrait { order: -1; justify-self: start; margin-top: 0; }
     .two-col { grid-template-columns: 1fr; gap: 40px; }
     .card-grid, .edu-grid { grid-template-columns: repeat(2, 1fr); }
 }
