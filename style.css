@@ -179,7 +179,7 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
     position: relative; z-index: 1;
     display: grid; grid-template-columns: 1.35fr 0.85fr; gap: 56px; align-items: start;
 }
-.hero-portrait { margin-top: 64px; }
+.hero-portrait { margin-top: 8px; }
 .eyebrow {
     display: inline-flex; align-items: center; gap: 9px;
     font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em;
@@ -194,12 +194,12 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
     line-height: 1.4; color: var(--text); max-width: 50ch; margin-bottom: 20px;
 }
 .hero-lede strong { color: var(--accent); font-weight: 600; }
-.hero-about { font-size: clamp(0.98rem, 1.4vw, 1.06rem); line-height: 1.7; color: var(--text-soft); max-width: 60ch; margin-bottom: 16px; }
-.hero-about:last-of-type { margin-bottom: 30px; }
+.hero-about { font-size: clamp(0.98rem, 1.4vw, 1.06rem); line-height: 1.7; color: var(--text-soft); max-width: 60ch; margin-bottom: 16px; text-align: justify; text-justify: inter-word; hyphens: auto; }
+.hero-about:last-of-type { margin-bottom: 0; }
 
-.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 26px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 22px; }
 
-.hero-links { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 16px; }
 .profile-pill {
     display: inline-flex; align-items: center; gap: 9px;
     font-size: 0.9rem; font-weight: 500; color: var(--text-soft);
