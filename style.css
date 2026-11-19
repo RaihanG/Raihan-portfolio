@@ -189,6 +189,19 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 
 .hero-name { font-size: clamp(2.7rem, 6vw, 4.6rem); font-weight: 600; letter-spacing: -0.02em; margin-bottom: 22px; }
+.hero-affil {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px;
+    margin: -8px 0 24px; font-size: clamp(1.05rem, 1.6vw, 1.18rem); font-weight: 600;
+}
+.hero-affil a {
+    color: var(--text); text-decoration: none; letter-spacing: 0.005em;
+    border-bottom: 2px solid color-mix(in srgb, var(--accent) 60%, transparent); padding-bottom: 2px;
+    transition: color .2s, border-color .2s, text-shadow .2s;
+}
+.hero-affil a:hover, .hero-affil a:focus-visible {
+    color: var(--accent); border-color: var(--accent); text-shadow: 0 0 14px var(--accent-glow);
+}
+.affil-sep { color: var(--accent); font-weight: 700; }
 .hero-lede {
     font-family: var(--font-display); font-size: clamp(1.25rem, 2vw, 1.6rem); font-weight: 500;
     line-height: 1.4; color: var(--text); max-width: 50ch; margin-bottom: 20px;
@@ -244,6 +257,7 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
 .badge-label { font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); }
 .badge-value { font-weight: 600; font-size: 0.96rem; grid-column: 2; }
 .badge-meta { font-size: 0.8rem; color: var(--text-mute); grid-column: 2; }
+.badge-meta + .badge-value { margin-top: 10px; }
 
 /* Hero stats */
 .hero-stats {
@@ -485,7 +499,7 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
 .tl-content > p:last-child { color: var(--text-mute); font-size: 0.93rem; }
 
 /* ---------- Education ---------- */
-.edu-grid { grid-template-columns: repeat(3, 1fr); }
+.edu-grid { grid-template-columns: repeat(4, 1fr); }
 .edu-card { padding: 26px; }
 .edu-year { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); }
 .edu-card h3 { font-size: 1.3rem; margin: 10px 0 6px; }
