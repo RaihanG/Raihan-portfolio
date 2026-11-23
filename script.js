@@ -97,7 +97,9 @@
         }
         requestAnimationFrame(step);
     }
-    if ("IntersectionObserver" in window && counters.length) {
+    if (!prefersReduced && "IntersectionObserver" in window && counters.length) {
+        // Real values are in the HTML (for no-JS and crawlers); reset to 0 so they can count up.
+        counters.forEach(function (el) { el.textContent = "0"; });
         var co = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
                 if (entry.isIntersecting) { animateCount(entry.target); co.unobserve(entry.target); }

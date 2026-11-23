@@ -118,7 +118,7 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
 
 .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 600; }
 .brand-mark { height: 26px; width: auto; flex: none; object-fit: contain; display: block; }
-.brand-name { font-family: var(--font-display); font-size: 1.02rem; letter-spacing: 0.01em; }
+.brand-name { font-family: var(--font-display); font-size: 1.02rem; letter-spacing: 0.01em; white-space: nowrap; }
 
 .site-nav { display: flex; align-items: center; gap: 4px; }
 .site-nav a {
@@ -539,20 +539,14 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
 .back-top:hover { color: var(--accent); }
 
 /* ---------- Reveal on scroll ---------- */
-.reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
-.reveal.in { opacity: 1; transform: none; }
+/* Only hidden when JS is running (html.js), so content stays visible if scripts fail or for crawlers. */
+.js .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+.js .reveal.in { opacity: 1; transform: none; }
 .card.reveal, .pub.reveal, .tl-item.reveal, .award-list li.reveal, .skill-group.reveal { transition-delay: var(--d, 0ms); }
 
 /* ---------- Responsive ---------- */
-@media (max-width: 920px) {
-    .spine { display: none; }
-    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-    .hero-portrait { order: -1; justify-self: start; margin-top: 0; }
-    .two-col { grid-template-columns: 1fr; gap: 40px; }
-    .card-grid, .edu-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 720px) {
+/* Full nav needs ~970px; collapse to the menu button below that. */
+@media (max-width: 1000px) {
     .nav-toggle { display: inline-grid; }
     .site-nav {
         position: fixed; inset: 70px 0 auto 0; flex-direction: column; align-items: stretch; gap: 2px;
@@ -565,7 +559,22 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
     .site-nav a.active::after { display: none; }
     .nav-toggle[aria-expanded="true"] .icon-menu { display: none; }
     .nav-toggle[aria-expanded="true"] .icon-close { display: block; }
+}
 
+@media (max-width: 920px) {
+    .spine { display: none; }
+    /* Single column: eyebrow, name and affiliations first, then the portrait, then the rest of the intro. */
+    .hero-grid { grid-template-columns: 1fr; gap: 0; }
+    .hero-copy { display: contents; }
+    .hero-copy > * { order: 2; }
+    .hero-copy > .eyebrow, .hero-copy > .hero-name, .hero-copy > .hero-affil { order: 0; }
+    .hero-copy > .eyebrow { justify-self: start; }
+    .hero-portrait { order: 1; justify-self: start; margin: 0 0 36px; }
+    .two-col { grid-template-columns: 1fr; gap: 40px; }
+    .card-grid, .edu-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 720px) {
     .hero { padding: 56px 0 48px; }
     .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 22px; }
     .card-grid, .edu-grid { grid-template-columns: 1fr; }
@@ -582,7 +591,7 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .wave, .eyebrow-dot { animation: none; }
-    .reveal { opacity: 1; transform: none; transition: none; }
+    .js .reveal { opacity: 1; transform: none; transition: none; }
     .spine-beam { display: none; }
     *, *::before, *::after { transition-duration: 0.01ms !important; }
 }
