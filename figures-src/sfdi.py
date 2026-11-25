@@ -1,7 +1,9 @@
-"""Concept figure: spatial frequency domain imaging (SFDI).
+"""Concept figure: spatial frequency domain imaging (SFDI), photographic.
 
-A projector casts sinusoidal fringes onto a tissue block; a camera records the
-diffusely reflected light. Illustration only, no measured data.
+A projector above a skin sample casts sinusoidal fringes (a real projection through a patterned
+slide, so the tissue blurs them by scattering); a camera near normal records the reflected light.
+Crossed polarisers sit on both lenses. The cut face shows epidermis, vascular dermis and
+subcutaneous fat. Illustration only, no measured data. Facts: brief.md.
 """
 import math
 import os
@@ -9,134 +11,173 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bpy  # noqa: E402
+from mathutils import Vector  # noqa: E402
 import common as C  # noqa: E402
 
 out, preview = C.args()
-C.reset()
-C.setup_render(out or "//sfdi.webp", preview)
+S = C.start(preview)
 
-# ---------------------------------------------------------------- tissue block
-TOP = 0.0
-tissue = C.rounded_box("Tissue", (5.2, 3.4, 1.1), (0, 0, TOP - 0.55), width=0.28)
-tissue.modifiers["Bevel"].segments = 10
-sub = tissue.modifiers.new("Sub", "SUBSURF")
-sub.levels = sub.render_levels = 2
-C.smooth(tissue)
+# ------------------------------------------------------------------ skin block (top at z = 0)
+BX, BY = 4.6, 3.0
+Z_EPI, Z_DERM, Z_FAT = -0.08, -0.66, -1.30          # bottoms of each layer (schematic thicknesses)
 
-m = C.principled("TissueSSS", (0.86, 0.52, 0.50), rough=0.42, sss=1.0,
-                 sss_radius=(1.0, 0.32, 0.18), sss_scale=0.35, coat=0.25)
-nt = m.node_tree
-p = nt.nodes.get("Principled BSDF")
-N = nt.nodes.new
-L = nt.links.new
+epi = C.tissue("#d8a28c", sss_radius=(1.0, 0.45, 0.25), sss_scale=0.05, rough=0.5, coat=0.15,
+               mottle="#c98b78", mottle_scale=9.0, bump=0.35, bump_scale=90.0, name="epidermis")
+# fine skin creases on the top surface
+co = epi.coord()
+vor = epi.new("ShaderNodeTexVoronoi", feature="DISTANCE_TO_EDGE")
+epi.put(vor.inputs["Vector"], co); vor.inputs["Scale"].default_value = 14.0
+crease = epi.maprange(vor.outputs["Distance"], 0.0, 0.04, 0.0, 1.0)
+epi.bump(epi.math("MULTIPLY", crease, epi.noise(co, 90.0, 8.0, 0.65)), 0.3, 0.008)
 
-tc = N("ShaderNodeTexCoord")
-sep = N("ShaderNodeSeparateXYZ")
-L(tc.outputs["Object"], sep.inputs[0])
+derm = C.tissue("#c66f6c", sss_radius=(1.0, 0.3, 0.15), sss_scale=0.05, rough=0.6,
+                mottle="#b35a5c", mottle_scale=14.0, name="dermis")
+# collagen: stretched fibrous noise on the cut face
+mp = derm.new("ShaderNodeMapping"); derm.put(mp.inputs["Vector"], derm.coord())
+mp.inputs["Scale"].default_value = (1.0, 1.0, 4.0)
+fib = derm.noise(mp.outputs[0], 45.0, 6.0, 0.7)
+derm.set(Base_Color=derm.mix(derm.maprange(fib, 0.4, 0.75), "#b9615f", "#cf8079"))
+derm.bump(fib, 0.15, 0.01)
 
-# fringe = (0.5 + 0.5 sin(2 pi f x)) ^ 1.6
-FREQ = 1.15  # cycles per unit
-mul = N("ShaderNodeMath"); mul.operation = "MULTIPLY"; mul.inputs[1].default_value = 2 * math.pi * FREQ
-sin = N("ShaderNodeMath"); sin.operation = "SINE"
-half = N("ShaderNodeMath"); half.operation = "MULTIPLY_ADD"
-half.inputs[1].default_value = 0.5; half.inputs[2].default_value = 0.5
-pw = N("ShaderNodeMath"); pw.operation = "POWER"; pw.inputs[1].default_value = 1.6
-L(sep.outputs["X"], mul.inputs[0]); L(mul.outputs[0], sin.inputs[0])
-L(sin.outputs[0], half.inputs[0]); L(half.outputs[0], pw.inputs[0])
+fat = C.tissue("#ead7a0", sss_radius=(1.0, 0.8, 0.35), sss_scale=0.08, rough=0.35, coat=0.2, name="fat")
+fv = fat.new("ShaderNodeTexVoronoi", feature="DISTANCE_TO_EDGE")
+fat.put(fv.inputs["Vector"], fat.coord()); fv.inputs["Scale"].default_value = 5.5
+sept = fat.maprange(fv.outputs["Distance"], 0.0, 0.035)
+fat.set(Base_Color=fat.mix(sept, "#d9a089", fat.mix(fat.noise(fat.coord(), 9.0), "#efdeaa", "#e2c787")))
+fat.bump(sept, 0.5, 0.02)
 
+C._box((BX, BY, -Z_EPI), (0, 0, Z_EPI / 2), epi.m, bevel=0.03, name="Epidermis")
+C._box((BX, BY, Z_EPI - Z_DERM), (0, 0, (Z_EPI + Z_DERM) / 2), derm.m, name="Dermis")
+C._box((BX, BY, Z_DERM - Z_FAT), (0, 0, (Z_DERM + Z_FAT) / 2), fat.m, name="Fat")
 
-def soft_window(axis_out, inner, outer):
-    a = N("ShaderNodeMath"); a.operation = "ABSOLUTE"
-    mr = N("ShaderNodeMapRange")
-    mr.inputs["From Min"].default_value = inner
-    mr.inputs["From Max"].default_value = outer
-    mr.inputs["To Min"].default_value = 1.0
-    mr.inputs["To Max"].default_value = 0.0
-    mr.clamp = True
-    L(axis_out, a.inputs[0]); L(a.outputs[0], mr.inputs["Value"])
-    return mr.outputs["Result"]
+# dermal vessels: their cut ends show on the front (-y) and left (-x) faces
+vessel = C._mat("vessel", **{"Base Color": C.hex_rgb("#7d1620"), "Roughness": 0.3, "Coat Weight": 0.6,
+                              "Subsurface Weight": 0.4, "Subsurface Radius": (1.0, 0.2, 0.1),
+                              "Subsurface Scale": 0.03})
+for x, z, r in ((-1.6, -0.30, 0.045), (-0.7, -0.45, 0.06), (0.3, -0.27, 0.035), (1.2, -0.50, 0.055),
+                (1.9, -0.33, 0.04)):
+    C.cylinder((x, -BY / 2 - 0.004, z), (x + 0.15, BY / 2 - 0.3, z + 0.05), r, vessel, 32)
+for y, z, r in ((-0.9, -0.38, 0.05), (0.4, -0.52, 0.04), (1.0, -0.29, 0.035)):
+    C.cylinder((-BX / 2 - 0.004, y, z), (BX / 2 - 0.4, y - 0.1, z - 0.04), r, vessel, 32)
 
+# optical table
+C.breadboard((0, 0.6, Z_FAT - 0.14), (9.0, 6.2, 0.14), color="#9aa1a8")
 
-mx = soft_window(sep.outputs["X"], 1.55, 1.9)
-my = soft_window(sep.outputs["Y"], 0.95, 1.25)
-# only the top face
-geo = N("ShaderNodeNewGeometry")
-nsep = N("ShaderNodeSeparateXYZ")
-L(geo.outputs["Normal"], nsep.inputs[0])
-top = N("ShaderNodeMapRange")
-top.inputs["From Min"].default_value = 0.75
-top.inputs["From Max"].default_value = 0.97
-top.clamp = True
-L(nsep.outputs["Z"], top.inputs["Value"])
-
-m1 = N("ShaderNodeMath"); m1.operation = "MULTIPLY"
-m2 = N("ShaderNodeMath"); m2.operation = "MULTIPLY"
-m3 = N("ShaderNodeMath"); m3.operation = "MULTIPLY"
-L(mx, m1.inputs[0]); L(my, m1.inputs[1])
-L(m1.outputs[0], m2.inputs[0]); L(top.outputs["Result"], m2.inputs[1])
-L(m2.outputs[0], m3.inputs[0]); L(pw.outputs[0], m3.inputs[1])   # m3 = fringe * mask
-
-strength = N("ShaderNodeMath"); strength.operation = "MULTIPLY"
-strength.inputs[1].default_value = 2.2
-L(m3.outputs[0], strength.inputs[0])
-C._set(p, ["Emission Color", "Emission"], (*C.srgb((0.70, 1.0, 0.95)), 1))
-L(strength.outputs[0], p.inputs["Emission Strength"])
-C.assign(tissue, m)
-
-# --------------------------------------------------------- projector + camera
-body = C.principled("Body", (0.11, 0.13, 0.16), rough=0.32, coat=0.6)
-glass = C.principled("Lens", (0.02, 0.03, 0.04), rough=0.05, metal=0.0, coat=1.0)
-teal_ring = C.emissive("TealRing", C.TEAL, 6.0)
-blue_ring = C.emissive("BlueRing", C.BLUE, 6.0)
+# ------------------------------------------------------------------ devices
+# Each device is built with its optical axis along local -x and turned about y by -(90 + tilt),
+# so it looks down, tilted by `tilt` degrees from vertical towards +x.
+steel = C.brushed_metal("#c8cdd2", 0.25, "z")
+blk = C.anodized("#25282d")
+RAIL_Z = 4.55
 
 
-def device(name, loc, target, size, ring_mat, lens_r):
-    import bpy
-    from mathutils import Vector
-    grp = bpy.data.objects.new(name, None)
-    bpy.context.collection.objects.link(grp)
-    grp.location = loc
-    C.look_at(grp, target)
-    b = C.rounded_box(name + "Body", size, (0, 0, 0), width=0.09, mat=body)
-    b.parent = grp
-    z_front = -size[2] / 2
-    barrel = C.cylinder(name + "Barrel", lens_r * 1.25, 0.28, (0, 0, z_front - 0.12), mat=body)
-    barrel.parent = grp
-    C.bevel(barrel, 0.03, 4)
-    lens = C.cylinder(name + "Glass", lens_r, 0.05, (0, 0, z_front - 0.27), mat=glass)
-    lens.parent = grp
-    bpy.ops.mesh.primitive_torus_add(major_radius=lens_r * 1.12, minor_radius=0.025,
-                                     location=(0, 0, z_front - 0.27))
-    ring = bpy.context.active_object
-    C.smooth(C.assign(ring, ring_mat))
-    ring.parent = grp
-    stripe = C.rounded_box(name + "Stripe", (size[0] * 1.002, 0.05, size[2] * 0.55),
-                           (0, size[1] / 2 - 0.12, 0), width=0.01, mat=ring_mat)
-    stripe.parent = grp
-    return grp, Vector(loc) + (Vector(target) - Vector(loc)).normalized() * (size[2] / 2 + 0.3)
+def place(objs, front_local, front_world, tilt):
+    R = C.rot_y(-(90.0 + tilt))
+    loc = Vector(front_world) - R @ Vector(front_local)
+    C.group(objs, loc, R)
+    D = R @ Vector((-1, 0, 0))
+    return lambda p: Vector(loc) + R @ Vector(p), D
 
 
-PROJ = (-2.9, -0.4, 3.4)
-CAM = (2.6, -0.9, 3.0)
-proj, proj_lens = device("Projector", PROJ, (-0.15, 0, 0), (1.25, 0.95, 1.35), teal_ring, 0.32)
-cam, cam_lens = device("Camera", CAM, (0.2, 0, 0), (0.95, 0.85, 1.0), blue_ring, 0.26)
+def projector():
+    """DLP-style light engine, lens towards -x, optical axis on local z = 0. Front glass at x = -0.38."""
+    objs = []
+    house = C.painted("#cfd4d9", 0.45)
+    objs.append(C._box((1.15, 0.95, 0.62), (0.62, 0, 0.12), house, 0.05))
+    for k in range(7):                                    # heat-sink fins on the back
+        objs.append(C._box((0.06, 0.8, 0.12), (0.3 + k * 0.1, 0, 0.49), C.anodized("#2a2d33"), 0.008))
+    objs.append(C.cylinder((0.05, 0, 0), (-0.32, 0, 0), 0.19, C.anodized("#17191d", 0.5), 64))
+    for k in range(2):
+        xx = -0.06 - k * 0.12
+        objs.append(C.cylinder((xx, 0, 0), (xx - 0.05, 0, 0), 0.205, C.anodized("#2d3036", 0.6), 64))
+    objs.append(C.cylinder((-0.32, 0, 0), (-0.36, 0, 0), 0.2, C.brushed_metal("#b9bec4", 0.3, "radial"), 64))
+    objs.append(C.cylinder((-0.36, 0, 0), (-0.38, 0, 0), 0.17, POL, 64))
+    return objs
 
-# ------------------------------------------------------------ light frustums
-z = TOP + 0.02
-rect = [(-1.7, -1.1, z), (1.7, -1.1, z), (1.7, 1.1, z), (-1.7, 1.1, z)]
-beam = C.mesh_from("Beam", [tuple(proj_lens)] + rect,
-                   [(0, 1, 2), (0, 2, 3), (0, 3, 4), (0, 4, 1), (1, 4, 3, 2)],
-                   C.glow_volume("BeamGlow", C.TEAL, 0.10))
-small = [(-1.2, -0.8, z), (1.2, -0.8, z), (1.2, 0.8, z), (-1.2, 0.8, z)]
-ret = C.mesh_from("Return", [tuple(cam_lens)] + small,
-                  [(0, 1, 2), (0, 2, 3), (0, 3, 4), (0, 4, 1), (1, 4, 3, 2)],
-                  C.glow_volume("ReturnGlow", C.BLUE, 0.045))
 
-# ------------------------------------------------------------------ lighting
-C.area_light("Key", (-3, -6, 8), (0, 0, 0), 900, 6)
-C.area_light("Rim", (4, 6, 5), (0, 0, 0.5), 700, 5, color=(0.75, 0.95, 1.0))
-C.area_light("Fill", (6, -4, 2), (0, 0, 0.5), 180, 4)
-C.shadow_catcher(z=-1.1)
+POL = C._mat("polariser", **{"Base Color": C.hex_rgb("#39404c"), "Roughness": 0.06, "Coat Weight": 1.0,
+                             "Metallic": 0.3})
 
-C.camera((0.6, -9.2, 6.0), (0.0, 0.2, 0.9), lens=46)
-C.render()
+# projector: left, 30 deg off vertical
+P_TILT = 30.0
+P_FRONT = Vector((-2.2, 0.0, 3.4))
+to_w, P_DIR = place(projector(), (-0.38, 0, 0), P_FRONT, P_TILT)
+pb = to_w((0.62, 0, 0.12))
+C.cylinder((pb.x, 0, RAIL_Z), tuple(pb), 0.05, steel, 32)
+C._box((0.3, 0.3, 0.26), (pb.x, 0, RAIL_Z), blk, 0.02)
+
+# camera: right, near normal (15 deg towards -x), with its own polariser
+C_TILT = -15.0
+CAM_SIZE = (0.62, 0.56, 0.56)
+zc = CAM_SIZE[2] / 2 + 0.05
+cam_objs, _ = C.camera_box((0, 0, -zc), CAM_SIZE, color="#24272c", lens_length=0.42)
+xf = -CAM_SIZE[0] / 2 - 0.06 - 0.42
+cam_objs.append(C.cylinder((xf - 0.005, 0, 0), (xf - 0.03, 0, 0), 0.12, POL, 64))
+C_FRONT = Vector((0.95, 0.0, 3.05))
+to_wc, C_DIR = place(cam_objs, (xf - 0.03, 0, 0), C_FRONT, C_TILT)
+cb = to_wc((0, 0, 0))
+C.cylinder((cb.x, 0, RAIL_Z), tuple(cb), 0.05, steel, 32)
+C._box((0.3, 0.3, 0.26), (cb.x, 0, RAIL_Z), blk, 0.02)
+
+# rail on a post at the back-left of the table
+POST = (-4.1, 0.0)
+C.cylinder((POST[0], 2.6, Z_FAT - 0.07), (POST[0], 2.6, RAIL_Z), 0.11, steel, 48)
+C.cylinder((POST[0], 2.6, RAIL_Z), (POST[0], 0.0, RAIL_Z), 0.08, C.brushed_metal("#c8cdd2", 0.25, "y"), 48)
+C._box((0.34, 0.34, 0.34), (POST[0], 2.6, RAIL_Z), blk, 0.02)
+C._box((0.3, 0.3, 0.3), (POST[0], 0.0, RAIL_Z), blk, 0.02)
+C.cylinder((POST[0], 0, RAIL_Z), (2.0, 0, RAIL_Z), 0.08, C.brushed_metal("#c8cdd2", 0.25, "x"), 48)
+
+# ------------------------------------------------------------------ fringe projection
+# A spot light just in front of the projector shines through a patterned slide (seen only by
+# shadow rays): sinusoidal transmission inside a rectangle, opaque outside it.
+L_POS = P_FRONT + P_DIR * 0.03
+SLIDE = 0.10
+Bm = C.basis(P_DIR, hint=(1, 0, 0))
+u, v = Bm.col[0], Bm.col[1]
+FIELD = [(-1.85, -1.25), (1.85, -1.25), (1.85, 1.25), (-1.85, 1.25)]   # field on the tissue (x, y)
+X0 = 0.0
+corners = [Vector((X0 + x, y, 0.0)) for x, y in FIELD]
+ab = []
+for q in corners:
+    w = q - L_POS
+    p = L_POS + w * (SLIDE / w.dot(P_DIR)) - (L_POS + P_DIR * SLIDE)
+    ab.append((p.dot(u), p.dot(v)))
+a0, a1 = min(a for a, b in ab), max(a for a, b in ab)
+b0, b1 = min(b for a, b in ab), max(b for a, b in ab)
+N_FRINGE = 7.0
+
+bpy.ops.mesh.primitive_plane_add(size=1.0)
+slide = bpy.context.object
+slide.name = "Slide"
+slide.matrix_world = (C.Matrix.Translation(L_POS + P_DIR * SLIDE) @ Bm.to_4x4())
+g = C._N("slide")
+g.nt.nodes.remove(g.bsdf)
+sx, sy, _ = g.xyz(g.coord())
+ph = g.math("MULTIPLY", g.math("SUBTRACT", sx, a0), 2 * math.pi * N_FRINGE / (a1 - a0))
+fr = g.math("MULTIPLY_ADD", g.math("SINE", ph), 0.5)
+g.nt.nodes[-1].inputs[2].default_value = 0.5
+inx = g.math("MULTIPLY", g.math("GREATER_THAN", sx, a0), g.math("LESS_THAN", sx, a1))
+iny = g.math("MULTIPLY", g.math("GREATER_THAN", sy, b0), g.math("LESS_THAN", sy, b1))
+tr = g.math("MULTIPLY", g.math("MULTIPLY", inx, iny), g.math("POWER", fr, 1.8))
+dark = g.new("ShaderNodeBsdfDiffuse"); dark.inputs["Color"].default_value = (0, 0, 0, 1)
+clear = g.new("ShaderNodeBsdfTransparent")
+mx = g.new("ShaderNodeMixShader")
+g.put(mx.inputs[0], tr); g.put(mx.inputs[1], dark.outputs[0]); g.put(mx.inputs[2], clear.outputs[0])
+g.nt.links.new(mx.outputs[0], g.out.inputs["Surface"])
+slide.data.materials.append(g.m)
+for attr in ("visible_camera", "visible_diffuse", "visible_glossy", "visible_transmission",
+             "visible_volume_scatter"):
+    setattr(slide, attr, False)
+
+C.spot("Projector", tuple(L_POS), P_DIR, 1000, "#eef9ff", size_deg=100, blend=0.0, radius=0.0005)
+
+# faint light paths: projector -> field, field -> camera
+C.frustum(L_POS, corners, "#d6f3ff", 0.022, "beam_in")
+C_IN = C_FRONT + C_DIR * 0.01
+cam_field = [Vector((0.15 + x * 0.8, y * 0.8, 0.0)) for x, y in FIELD]
+C.frustum(C_IN, cam_field, "#5ea0ff", 0.022, "beam_out")
+
+# ------------------------------------------------------------------ light and camera
+C.studio(target=(0, 0, 0.6), scale=1.5, key=0.5, fill=0.45, rim=0.9, top=0.25)
+C.camera_look(loc=(-4.6, -9.6, 5.4), target=(-0.55, 0.25, 1.6), lens_mm=35)
+C.finish(S, out or os.path.join(os.path.dirname(os.path.abspath(__file__)), "sfdi.png"))

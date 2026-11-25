@@ -367,6 +367,12 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
     padding: 24px; transition: border-color 0.25s var(--ease);
 }
 .project-card:hover { border-color: var(--border); }
+.project-figure {
+    margin: -24px -24px 18px; overflow: hidden;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0; border-bottom: 1px solid var(--border-soft);
+    background: var(--bg-elev);
+}
+.project-figure img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; }
 .project-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
 .project-card-head h4 { font-size: 1.08rem; line-height: 1.3; margin: 0; }
 .project-card p { color: var(--text-soft); font-size: 0.94rem; margin: 0 0 16px; }
@@ -433,6 +439,7 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
 .pub-authors { display: block; font-size: 0.9rem; color: var(--text-soft); margin-bottom: 5px; }
 .pub-authors strong { color: var(--text); font-weight: 600; }
 .pub-venue { display: block; font-size: 0.86rem; color: var(--text-mute); }
+.pub-year { display: block; font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); letter-spacing: 0.03em; margin-bottom: 6px; }
 .pub-arrow {
     position: absolute; top: 20px; right: 20px; width: 22px; height: 22px; color: var(--text-mute);
     transition: color 0.2s var(--ease), transform 0.2s var(--ease);
@@ -529,6 +536,10 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
 .contact-wrap { text-align: center; max-width: 760px; }
 .contact-wrap .kicker { display: inline-block; }
 .contact-lede { color: var(--text-soft); font-size: 1.06rem; max-width: 52ch; margin: 0 auto 32px; }
+/* Running text: justified, like the hero paragraphs */
+.card p, .project-card p, .tl-content > p:last-child, .news-list p, .award-list p {
+    text-align: justify; text-justify: inter-word; hyphens: auto;
+}
 .contact-cta { font-family: var(--font-mono); font-size: 0.98rem; }
 
 /* ---------- Footer ---------- */
